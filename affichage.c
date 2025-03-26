@@ -11,9 +11,9 @@ void afficher_plateau(Plateau* p, MLV_Image* image) {
             } else {
                 int source_x = p->bloc[i][j].col * tile_width;
                 int source_y = p->bloc[i][j].lig * tile_height;
-                MLV_draw_image(image, source_x, source_y, j * tile_width, i * tile_height);
-            }
+                MLV_draw_partial_image(image, source_x, source_y,tile_width,tile_height, j*tile_width,i *tile_height);
         }
     }
     MLV_actualise_window();
+    }
 }
