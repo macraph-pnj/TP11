@@ -1,22 +1,19 @@
-#include <stdio.h>
-#include <MLV/MLV_all.h>
-#include <affichage.h>
+#include "affichage.h"
 
-void print_taquin(Plateau* P)){
-    int width=512;
-    int length=512;
-    MLV_free_window();
-    MLV_create_window("taquin",NULL,width,length);
-    //MLV_load_image(const char *file_image);
-    int x=width/NB_COL;
-    int y=length/NB_LIG;
-
-
-
-
-
-
-
+void afficher_plateau(Plateau* p, MLV_Image* image) {
+    int i, j;
+    int tile_width = 512 / NB_COL;
+    int tile_height = 512 / NB_LIG;
+    for(i = 0; i < NB_LIG; i++){
+        for(j = 0; j < NB_COL; j++){
+            if(j == p->empty_x && i == p->empty_y) {
+                MLV_draw_filled_rectangle(j * tile_width, i * tile_height, tile_width, tile_height, MLV_COLOR_BLACK);
+            } else {
+                int source_x = p->bloc[i][j].col * tile_width;
+                int source_y = p->bloc[i][j].lig * tile_height;
+                MLV_draw_image(image, source_x, source_y, j * tile_width, i * tile_height);
+            }
+        }
+    }
     MLV_actualise_window();
-    MLV_free_window();
 }
